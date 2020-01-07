@@ -56,7 +56,7 @@ export const verifyLogin = ({ credential, creds }: Props) => {
     verified: verified ? true : false,
     authrInfo: verified
       ? {
-          fmt: 'fido-u2f',
+          fmt: cred.fmt,
           counter: authrDataStruct.counter,
           publicKey: base64url.encode(publicKey),
           credID: base64url.encode(cred.credID),
