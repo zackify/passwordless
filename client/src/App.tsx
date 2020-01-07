@@ -44,7 +44,7 @@ const App = () => {
                 id: 'localhost',
               },
               user: {
-                id: Uint8Array.from('useridfromserver', c => c.charCodeAt(0)),
+                id: 'useridfromserver',
                 name: username,
                 displayName: username,
               },
