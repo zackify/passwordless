@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "TS_NODE_FILES=true node -r esm -r ts-node/register server.ts"
+  },
+  "dependencies": {
+    "@fidm/x509": "^1.2.1",
+    "base64url": "^3.0.1",
+    "cbor": "^5.0.1",
+    "iso-3166-1": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.4",
+    "esm": "^3.2.25",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  }
+}
