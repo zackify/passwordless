@@ -22,3 +22,5 @@ openssl rsa -pubout -in private_key.pem -out public_key.pem
 Next:
 
 - make high level functions for each step in the process, try adding express and see how it looks
+- offer node library with built in verify function of the resulting login jwt token, show manual way to implement in
+  your own language
