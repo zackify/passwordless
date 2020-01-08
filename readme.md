@@ -5,3 +5,20 @@
 5. copy credID value, paste it into setupLogin in server.ts, call setupLogin, yarn start
 6. copy and paste console output into App.tsx handleLogin method (make sure transports is ['usb', 'nfc', 'ble'])
 7. tap login on the frontend, copy console output into server.ts verifyLogin function, paste the challenge from the last yarn run start command
+
+Make private and public key
+
+```
+# Generate a private key
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+
+# Derive the public key from the private key
+openssl rsa -pubout -in private_key.pem -out public_key.pem
+
+
+// when making the register / login endpoints, make sure to version in in case of key changes
+```
+
+Next:
+
+- make high level functions for each step in the process, try adding express and see how it looks

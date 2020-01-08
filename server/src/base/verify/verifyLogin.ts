@@ -1,9 +1,9 @@
-import { hash } from './hash';
-import base64url from 'base64url';
-import { ASN1toPEM } from './ASN1toPEM';
-import { parseAuthData } from './parseAuthData';
-import { verifySignature } from './verifySignature';
-import { AuthrInfo } from './verify';
+import { hash } from "./helpers/hash";
+import base64url from "base64url";
+import { ASN1toPEM } from "./helpers/ASN1toPEM";
+import { parseAuthData } from "./helpers/parseAuthData";
+import { verifySignature } from "./helpers/verifySignature";
+import { AuthrInfo } from "./verify";
 
 export type LoginCredential = {
   rawId: string;
@@ -25,17 +25,17 @@ type Props = {
 
 export const verifyLogin = ({ credential, creds }: Props) => {
   const authenticatorData = base64url.toBuffer(
-    credential.response.authenticatorData,
+    credential.response.authenticatorData
   );
   const authrDataStruct = parseAuthData(authenticatorData);
   const clientDataHash = hash(
-    base64url.toBuffer(credential.response.clientDataJSON),
+    base64url.toBuffer(credential.response.clientDataJSON)
   );
   const signatureBase = Buffer.concat([
     authrDataStruct.rpIdHash,
     authrDataStruct.flagsBuf,
     authrDataStruct.counterBuf,
-    clientDataHash,
+    clientDataHash
   ]);
   const signature = base64url.toBuffer(credential.response.signature);
 
@@ -45,7 +45,7 @@ export const verifyLogin = ({ credential, creds }: Props) => {
     return {
       verified: false,
       message:
-        'Cred id from card doesnt match what you passed to verfy function',
+        "Cred id from card doesnt match what you passed to verfy function"
     };
 
   let publicKey = ASN1toPEM(base64url.toBuffer(cred.publicKey));
@@ -59,8 +59,8 @@ export const verifyLogin = ({ credential, creds }: Props) => {
           fmt: cred.fmt,
           counter: authrDataStruct.counter,
           publicKey: base64url.encode(publicKey),
-          credID: base64url.encode(cred.credID),
+          credID: base64url.encode(cred.credID)
         }
-      : undefined,
+      : undefined
   };
 };
