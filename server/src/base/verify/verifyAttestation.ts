@@ -71,7 +71,7 @@ export const verifyAttestation = (webAuthnResponse: RegistrationCredential) => {
 
     // Getting requirements from https://www.w3.org/TR/webauthn/#packed-attestation
     const aaguid_ext = pem.getExtension("1.3.6.1.4.1.45724.1.1.4");
-
+    console.log(pem);
     response.verified = // Verify that sig is a valid signature over the concatenation of authenticatorData
       // and clientDataHash using the attestation public key in attestnCert with the algorithm specified in alg.
       verifySignature(signature, signatureBase, PEMCertificate) &&

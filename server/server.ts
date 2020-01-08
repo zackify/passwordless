@@ -134,7 +134,7 @@ const generateRegisterStuff = async () => {
 
   console.log(challengeToken, verify, publicKeyOptions);
 };
-//verifyRegistration();
+verifyRegistration();
 //setupLogin();
 //verifyLogin();
-generateRegisterStuff();
+//generateRegisterStuff();
