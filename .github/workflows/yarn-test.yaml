@@ -20,9 +20,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: node_modules
-          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/server/yarn.lock') }}
+          key: ${{ runner.OS }}-npm-cache-server-${{ hashFiles('**/server/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-cache-
+            ${{ runner.OS }}-npm-cache-server-
       - name: yarn install, build, and test
         run: |
           cd server
@@ -49,9 +49,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: node_modules
-          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/client/yarn.lock') }}
+          key: ${{ runner.OS }}-npm-cache-client-${{ hashFiles('**/client/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-cache-
+            ${{ runner.OS }}-npm-cache-client-
       - name: yarn install, build, and test
         run: |
           cd client

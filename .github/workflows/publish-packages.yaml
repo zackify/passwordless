@@ -1,0 +1,51 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [created]
+
+jobs:
+publish-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache-server-${{ hashFiles('**/server/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-server-
+      - run: cd server
+      - run: yarn --frozen-lockfile
+      - run: yarn build
+      - run: yarn export-types
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+  publish-client:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache-client-${{ hashFiles('**/client/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-client-
+      - run: cd client
+      - run: yarn --frozen-lockfile
+      - run: yarn build
+      - run: yarn export-types
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
