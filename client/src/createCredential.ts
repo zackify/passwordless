@@ -1,14 +1,14 @@
-import { credentialToJSON } from './credentialToJSON';
-import { decode } from './base64';
+import { credentialToJSON } from "./credentialToJSON";
+import { decode } from "./base64";
 
 const defaultPublicKeyOptions: Partial<PublicKeyCredentialCreationOptions> = {
-  pubKeyCredParams: [{ alg: -7, type: 'public-key' }],
+  pubKeyCredParams: [{ alg: -7, type: "public-key" }],
   authenticatorSelection: {
-    userVerification: 'preferred',
-    authenticatorAttachment: 'cross-platform',
+    userVerification: "preferred",
+    authenticatorAttachment: "cross-platform"
   },
   timeout: 60000,
-  attestation: 'direct',
+  attestation: "direct"
 };
 
 /*
@@ -19,16 +19,16 @@ const defaultPublicKeyOptions: Partial<PublicKeyCredentialCreationOptions> = {
 */
 
 type Props = Partial<
-  Omit<PublicKeyCredentialCreationOptions, 'challenge' | 'user'>
+  Omit<PublicKeyCredentialCreationOptions, "challenge" | "user">
 > & {
   challenge: string;
-  rp: PublicKeyCredentialCreationOptions['rp'];
-  user: Omit<PublicKeyCredentialCreationOptions['user'], 'id'> & {
+  rp: PublicKeyCredentialCreationOptions["rp"];
+  user: Omit<PublicKeyCredentialCreationOptions["user"], "id"> & {
     id: string;
   };
 };
 
-export const askForCredential = async ({
+export const createCredential = async ({
   challenge,
   rp,
   user,
@@ -41,10 +41,10 @@ export const askForCredential = async ({
       ...publicKey,
       user: {
         ...user,
-        id: Uint8Array.from(user.id, c => c.charCodeAt(0)),
+        id: Uint8Array.from(user.id, c => c.charCodeAt(0))
       },
-      rp,
-    } as PublicKeyCredentialCreationOptions,
+      rp
+    } as PublicKeyCredentialCreationOptions
   });
 
   return credentialToJSON(credential);

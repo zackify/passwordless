@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { prepareLogin } from "../../src/prepareLogin";
-import { prepareRegistration } from "../../src/prepareRegistration";
-import { verify, AuthrInfo } from "../../src/verify";
-import { RegistrationCredential } from "../../src/verifyRegistration";
+import {
+  prepareRegistration,
+  prepareLogin,
+  verify
+} from "@passwordless/server";
+import { AuthrInfo } from "@passwordless/server/module/verify";
+import { RegistrationCredential } from "@passwordless/server/module/verifyRegistration";
 
 const app = express();
 app.use(cors());

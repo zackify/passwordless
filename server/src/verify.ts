@@ -25,12 +25,12 @@ export type VerificationResponse = {
   authrInfo?: AuthrInfo;
 };
 
-export const verify = ({
+export const verify = async ({
   credential,
   challenge,
   origin,
   creds
-}: Props): VerificationResponse => {
+}: Props): Promise<VerificationResponse> => {
   if (!credential || !credential.response)
     return {
       verified: false,

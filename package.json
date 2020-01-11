@@ -1,9 +1,0 @@
-{
-  "name": "webauthn-framework",
-  "version": "0.0.1",
-  "description": " ",
-  "main": "index.js",
-  "repository": "git@github.com:zackify/webauthn-framework.git",
-  "author": "Zach Silveira <zackify@gmail.com>",
-  "license": "MIT"
-}

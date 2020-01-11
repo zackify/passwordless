@@ -20,6 +20,6 @@ type Props = {
 
 export const verifyRegistration = ({
   credential
-}: Props): VerificationResponse => {
+}: Props): Promise<VerificationResponse> => {
   return verifyAttestation(credential);
 };

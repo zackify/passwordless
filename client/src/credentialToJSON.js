@@ -1,6 +1,6 @@
 // Barely changed, taken from
 // https://github.com/strangerlabs/webauthn
-import base64url from 'base64url';
+import { encode } from "./base64";
 
 export const credentialToJSON = pubKeyCred => {
   if (ArrayBuffer.isView(pubKeyCred)) {
@@ -18,7 +18,7 @@ export const credentialToJSON = pubKeyCred => {
   }
 
   if (pubKeyCred instanceof ArrayBuffer) {
-    return base64url.encode(pubKeyCred);
+    return encode(pubKeyCred);
   }
 
   if (pubKeyCred instanceof Object) {

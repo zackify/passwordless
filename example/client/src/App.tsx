@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { askForCredential } from "./webauthn/register";
-import { handleLogin } from "./webauthn/login";
+import { createCredential, getCredential } from "@passwordless/client";
 
 const App = () => {
   let [username, setUsername] = useState("");
@@ -19,7 +18,7 @@ const App = () => {
               `http://localhost:3000/prepare-login/${username}`
             );
             let publicKey = await response.json();
-            let credential = await handleLogin(publicKey);
+            let credential = await getCredential(publicKey);
             console.log(credential);
 
             let response2 = await fetch(
@@ -45,7 +44,7 @@ const App = () => {
             );
             let publicKey = await response.json();
 
-            let credential = await askForCredential(publicKey);
+            let credential = await createCredential(publicKey);
 
             console.log("got credential");
 

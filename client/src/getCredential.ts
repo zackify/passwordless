@@ -1,5 +1,5 @@
-import { credentialToJSON } from './credentialToJSON';
-import { decode } from './base64';
+import { credentialToJSON } from "./credentialToJSON";
+import { decode } from "./base64";
 
 /**
  * Exporting and stuff
@@ -8,14 +8,14 @@ type Props = {
   challenge: string;
   allowCredentials: any;
 };
-export const handleLogin = async ({ challenge, allowCredentials }: Props) => {
+export const getCredential = async ({ challenge, allowCredentials }: Props) => {
   const publicKey: any = {
-    userVerification: 'preferred',
+    userVerification: "preferred",
     challenge: decode(challenge),
     allowCredentials: allowCredentials.map((cred: any) => ({
       ...cred,
-      id: decode(cred.id),
-    })),
+      id: decode(cred.id)
+    }))
   };
   try {
     let credential = await navigator.credentials.get({ publicKey });

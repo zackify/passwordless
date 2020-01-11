@@ -10,10 +10,10 @@ Make private and public key
 
 ```
 # Generate a private key
-openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+openssl ecparam -genkey -name secp384r1 -out private.pem
 
 # Derive the public key from the private key
-openssl rsa -pubout -in private_key.pem -out public_key.pem
+openssl ec -in private.pem -pubout -out public.pem
 
 
 // when making the register / login endpoints, make sure to version in in case of key changes

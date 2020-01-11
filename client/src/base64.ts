@@ -1,10 +1,32 @@
-let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
 // Use a lookup table to find the index.
 let lookup = new Uint8Array(256);
 for (let i = 0; i < chars.length; i++) {
   lookup[chars.charCodeAt(i)] = i;
 }
+
+export const encode = (arraybuffer: any) => {
+  let bytes = new Uint8Array(arraybuffer),
+    i,
+    len = bytes.length,
+    base64url = "";
+
+  for (i = 0; i < len; i += 3) {
+    base64url += chars[bytes[i] >> 2];
+    base64url += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
+    base64url += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
+    base64url += chars[bytes[i + 2] & 63];
+  }
+
+  if (len % 3 === 2) {
+    base64url = base64url.substring(0, base64url.length - 1);
+  } else if (len % 3 === 1) {
+    base64url = base64url.substring(0, base64url.length - 2);
+  }
+
+  return base64url;
+};
 
 export const decode = function(base64string: any) {
   let bufferLength = base64string.length * 0.75,
