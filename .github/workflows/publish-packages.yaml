@@ -20,7 +20,8 @@ jobs:
           key: ${{ runner.OS }}-yarn-cache-server-${{ hashFiles('**/server/yarn.lock') }}
           restore-keys: |
             ${{ runner.OS }}-yarn-cache-server-
-      - run: |
+      - name: Build server code
+        run: |
           cd server
           yarn --frozen-lockfile
           yarn build
@@ -43,7 +44,8 @@ jobs:
           key: ${{ runner.OS }}-yarn-cache-client-${{ hashFiles('**/client/yarn.lock') }}
           restore-keys: |
             ${{ runner.OS }}-yarn-cache-client-
-      - run: |
+      - name: Build client code
+        run: |
           cd client
           yarn --frozen-lockfile
           yarn build
