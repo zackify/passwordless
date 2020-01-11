@@ -121,9 +121,7 @@ const generateRegisterStuff = async () => {
     rp: {
       name: "Local Test",
       id: "localhost"
-    },
-    createChallengeToken: async challenge =>
-      jwt.sign({ challenge }, privateKey, { algorithm: "RS512" })
+    }
   });
   let challengeToken = await jwt.sign(
     { challenge: publicKeyOptions.challenge },

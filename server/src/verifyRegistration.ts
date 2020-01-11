@@ -1,6 +1,6 @@
-import base64url from 'base64url';
-import { verifyAttestation } from './verifyAttestation';
-import { VerificationResponse } from './verify';
+import base64url from "base64url";
+import { verifyAttestation } from "./attestation/verifyAttestation";
+import { VerificationResponse } from "./verify";
 
 export type RegistrationCredential = {
   rawId: string;
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const verifyRegistration = ({
-  credential,
+  credential
 }: Props): VerificationResponse => {
   return verifyAttestation(credential);
 };

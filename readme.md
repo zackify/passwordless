@@ -21,6 +21,12 @@ openssl rsa -pubout -in private_key.pem -out public_key.pem
 
 Next:
 
+- Split verify attestation code into folder
+  - make a folder for device specific data parsing
+  - make it easy to add a new device file and new attestation type
+  - add a test next to each attestation file type
+- Store entire PEM cert, so that parsing can be done at a later time to get device names
+- store yubikey device names
 - make high level functions for each step in the process, try adding express and see how it looks
 - offer node library with built in verify function of the resulting login jwt token, show manual way to implement in
   your own language

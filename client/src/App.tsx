@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { askForCredential } from './webauthn/register';
-import { handleLogin } from './webauthn/login';
+import React, { useState } from "react";
+import { askForCredential } from "./webauthn/register";
+import { handleLogin } from "./webauthn/login";
 
 const App = () => {
-  let [username, setUsername] = useState('');
+  let [username, setUsername] = useState("");
 
   return (
     <div className="App">
@@ -15,42 +15,52 @@ const App = () => {
         />
         <p
           onClick={async () => {
-            let credential = await handleLogin({
-              challenge:
-                '4sQioQ-g92of8C_eRE5omIj9EUwgaF6b52-ewjAsNGJHA1Z9CCbJSj4XzQEOA8lWF9dgQvPn6PQMLHYgopJmnQ',
-              allowCredentials: [
-                {
-                  type: 'public-key',
-                  id:
-                    'OBevL9RdP3chxkXncHGqAQrI3a6iJDb8tjhrvAf5FjZf29G17EGhh-o8tuYhRs4YpdmjMTYk_FpmvF3HdxcRiA',
-                  transports: ['usb', 'nfc', 'ble'],
-                },
-              ],
-            });
+            let response = await fetch(
+              `http://localhost:3000/prepare-login/${username}`
+            );
+            let publicKey = await response.json();
+            let credential = await handleLogin(publicKey);
             console.log(credential);
+
+            let response2 = await fetch(
+              `http://localhost:3000/verify-credential`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json"
+                },
+                body: JSON.stringify({ credential })
+              }
+            );
+            let result = await response2.json();
+            console.log("server validation", result);
           }}
         >
           Login
         </p>
         <p
           onClick={async () => {
-            let credential = await askForCredential({
-              // server must maintain the state through sessions or something
-              // so it can check the result matches
-              challenge:
-                'qCPnZk8wijiHC5BtG2d1mzywYrwGsIxZ9I5qkgYzxk0vhuYalD66K2KnxG4E_KR7hrnqmN5vFOONYNDQdUVwDw',
-              rp: {
-                name: 'Local Test',
-                id: 'localhost',
-              },
-              user: {
-                id: 'useridfromserver',
-                name: username,
-                displayName: username,
-              },
-            });
+            let response = await fetch(
+              `http://localhost:3000/prepare-registration/${username}`
+            );
+            let publicKey = await response.json();
 
-            console.log(credential);
+            let credential = await askForCredential(publicKey);
+
+            console.log("got credential");
+
+            let response2 = await fetch(
+              `http://localhost:3000/verify-credential`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json"
+                },
+                body: JSON.stringify({ credential })
+              }
+            );
+            let result = await response2.json();
+            console.log("server validation", result);
           }}
         >
           click here to register

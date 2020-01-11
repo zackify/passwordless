@@ -1,9 +1,9 @@
-import base64url from 'base64url';
-import { verifyLogin, LoginCredential } from './verifyLogin';
+import base64url from "base64url";
+import { verifyLogin, LoginCredential } from "./verifyLogin";
 import {
   verifyRegistration,
-  RegistrationCredential,
-} from './verifyRegistration';
+  RegistrationCredential
+} from "./verifyRegistration";
 
 export type AuthrInfo = {
   fmt: string;
@@ -29,15 +29,20 @@ export const verify = ({
   credential,
   challenge,
   origin,
-  creds,
+  creds
 }: Props): VerificationResponse => {
+  if (!credential || !credential.response)
+    return {
+      verified: false,
+      message: "Credential is missing data"
+    };
   let data = JSON.parse(base64url.decode(credential.response.clientDataJSON));
 
   /* Check challenge... */
   if (data.challenge !== challenge) {
     return {
       verified: false,
-      message: "Challenges don't match!",
+      message: "Challenges don't match!"
     };
   }
 
@@ -45,20 +50,20 @@ export const verify = ({
   if (data.origin !== origin) {
     return {
       verified: false,
-      message: "Origins don't match!",
+      message: "Origins don't match!"
     };
   }
   /* check type */
-  if (credential.type !== 'public-key') {
+  if (credential.type !== "public-key") {
     return {
       verified: false,
-      message: 'credential type must be public-key',
+      message: "credential type must be public-key"
     };
   }
   /* if there's an attestationObject, this is a registration credential */
   if ((credential as RegistrationCredential).response.attestationObject) {
     return verifyRegistration({
-      credential: credential as RegistrationCredential,
+      credential: credential as RegistrationCredential
     });
   }
 
@@ -67,16 +72,16 @@ export const verify = ({
     if (!creds)
       return {
         verified: false,
-        message: 'Must pass credIDs for the user when calling verifyLogin',
+        message: "Must pass credIDs for the user when calling verifyLogin"
       };
     return verifyLogin({
       credential: credential as LoginCredential,
-      creds,
+      creds
     });
   }
 
   return {
     verified: false,
-    message: 'Credential object is missing required fields',
+    message: "Credential object is missing required fields"
   };
 };
