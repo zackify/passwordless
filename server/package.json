@@ -11,21 +11,22 @@
     "check-types": "tsc --noEmit",
     "export-types": "tsc --emitDeclarationOnly --outDir module && tsc --emitDeclarationOnly --outDir cjs",
     "build": "NODE_ENV=production babel src --out-dir module --extensions \".ts,.tsx,.js\" && NODE_ENV=production npx babel --plugins @babel/plugin-transform-modules-commonjs src --out-dir cjs --extensions \".ts,.tsx,.js\"",
-    "test": "yarn test"
+    "test": "jest"
   },
   "dependencies": {
     "@fidm/x509": "^1.2.1",
+    "@types/jest": "^24.0.25",
     "base64url": "^3.0.1",
     "cbor": "^5.0.1",
     "iso-3166-1": "^1.1.0"
   },
   "devDependencies": {
-    "@types/node": "^13.1.4",
+    "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/plugin-transform-modules-commonjs": "^7.7.5",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-typescript": "^7.7.7",
-    "@babel/cli": "^7.7.7",
+    "@types/node": "^13.1.4",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
     "tsc": "^1.20150623.0",

@@ -1,0 +1,63 @@
+name: Test and Build
+
+on: [push]
+
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/server/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-
+      - name: yarn install, build, and test
+        run: |
+          cd server
+          yarn --frozen-lockfile
+          yarn build
+          yarn test --coverage
+          yarn check-types
+        env:
+          CI: true
+  build-client:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/client/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-
+      - name: yarn install, build, and test
+        run: |
+          cd client
+          yarn --frozen-lockfile
+          yarn build
+          yarn test --coverage
+          yarn check-types
+        env:
+          CI: true

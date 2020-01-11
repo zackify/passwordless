@@ -19,7 +19,7 @@ const App = () => {
             );
             let publicKey = await response.json();
             let credential = await getCredential(publicKey);
-            console.log(credential);
+            console.log(credential, "hi");
 
             let response2 = await fetch(
               `http://localhost:3000/verify-credential`,
