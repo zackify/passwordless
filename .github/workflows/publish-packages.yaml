@@ -20,11 +20,12 @@ jobs:
           key: ${{ runner.OS }}-yarn-cache-server-${{ hashFiles('**/server/yarn.lock') }}
           restore-keys: |
             ${{ runner.OS }}-yarn-cache-server-
-      - run: cd server
-      - run: yarn --frozen-lockfile
-      - run: yarn build
-      - run: yarn export-types
-      - run: npm publish
+      - run: |
+          cd server
+          yarn --frozen-lockfile
+          yarn build
+          yarn export-types
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
   publish-client:
@@ -42,10 +43,11 @@ jobs:
           key: ${{ runner.OS }}-yarn-cache-client-${{ hashFiles('**/client/yarn.lock') }}
           restore-keys: |
             ${{ runner.OS }}-yarn-cache-client-
-      - run: cd client
-      - run: yarn --frozen-lockfile
-      - run: yarn build
-      - run: yarn export-types
-      - run: npm publish
+      - run: |
+          cd client
+          yarn --frozen-lockfile
+          yarn build
+          yarn export-types
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
