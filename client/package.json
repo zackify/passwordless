@@ -12,7 +12,6 @@
     "@babel/preset-typescript": "^7.7.7",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
-    "tsc": "^1.20150623.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
