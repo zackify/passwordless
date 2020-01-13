@@ -23,6 +23,7 @@ export type VerificationResponse = {
   verified: boolean;
   message?: string;
   authrInfo?: AuthrInfo;
+  matchingCredID?: string;
 };
 
 export const verify = async ({

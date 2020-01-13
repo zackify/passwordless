@@ -59,9 +59,9 @@ export const verifyLogin = ({ credential, creds }: Props) => {
   let publicKey = ASN1toPEM(base64url.toBuffer(cred.publicKey));
   let verified = verifySignature(signature, signatureBase, publicKey);
 
-  //TODO add check if counter did not increase from previously stored
   return {
     verified: verified ? true : false,
+    matchingCredID: credential.id,
     authrInfo: verified
       ? {
           fmt: cred.fmt,
