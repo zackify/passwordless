@@ -48,6 +48,14 @@ export const verifyLogin = ({ credential, creds }: Props) => {
         "Cred id from card doesnt match what you passed to verfy function"
     };
 
+  if (cred.counter > authrDataStruct.counter) {
+    return {
+      verified: false,
+      message:
+        "credential count is less than previous value, this shouldn't be possible"
+    };
+  }
+
   let publicKey = ASN1toPEM(base64url.toBuffer(cred.publicKey));
   let verified = verifySignature(signature, signatureBase, publicKey);
 
