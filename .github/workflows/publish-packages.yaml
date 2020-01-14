@@ -1,8 +1,8 @@
-name: Publish to npm
+name: Publish to npm registry
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   publish-server:
@@ -26,7 +26,7 @@ jobs:
           yarn --frozen-lockfile
           yarn build
           yarn export-types
-          npm publish
+          yarn publish --new-version ${GITHUB_REF:10} --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
   publish-client:
@@ -50,6 +50,6 @@ jobs:
           yarn --frozen-lockfile
           yarn build
           yarn export-types
-          npm publish
+          yarn publish --new-version ${GITHUB_REF:10} --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
