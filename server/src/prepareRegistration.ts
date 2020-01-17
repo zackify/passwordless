@@ -32,8 +32,7 @@ export const prepareRegistration = async ({
     rp,
     excludeCredentials: excludedCredIds.map(id => ({
       type: "public-key",
-      id: id as any, //on the server we cant use a buffersource, this type is meant for frontend
-      transports: ["usb", "nfc", "ble"]
+      id: id as any //on the server we cant use a buffersource, this type is meant for frontend
     })),
     user: user as any,
     challenge: base64url(crypto.randomBytes(64)),

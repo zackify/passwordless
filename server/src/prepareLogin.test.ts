@@ -15,8 +15,8 @@ test("Prepare Login returns creds", () => {
 
   expect(result).toEqual({
     allowCredentials: [
-      { id: "id1", transports: ["usb", "nfc", "ble"], type: "public-key" },
-      { id: "id2", transports: ["usb", "nfc", "ble"], type: "public-key" }
+      { id: "id1", type: "public-key" },
+      { id: "id2", type: "public-key" }
     ],
     authenticatorSelection: {
       authenticatorAttachment: "cross-platform",

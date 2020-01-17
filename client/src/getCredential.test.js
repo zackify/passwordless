@@ -16,8 +16,7 @@ test("getCredential calls navigation.credentials.get correctly", () => {
       {
         type: "public-key",
         id:
-          "14qc46TWvxrnokphqIXEJBjMJc6vggL1zWA7cSFBphW39V_XS454QEWOn_p12C4WJjpAsTkQqfkV6JicNg2F2Q",
-        transports: ["usb", "nfc", "ble"]
+          "14qc46TWvxrnokphqIXEJBjMJc6vggL1zWA7cSFBphW39V_XS454QEWOn_p12C4WJjpAsTkQqfkV6JicNg2F2Q"
       }
     ]
   });
@@ -32,7 +31,6 @@ test("getCredential calls navigation.credentials.get correctly", () => {
   //we confirms it is an arraybuffer, now delete it and expect the rest of the correct data
   delete creds[0].id;
   expect(creds[0]).toEqual({
-    transports: ["usb", "nfc", "ble"],
     type: "public-key"
   });
 });

@@ -12,8 +12,7 @@ export const prepareLogin = ({ credIDs, authenticatorSelection }: Props) => {
     challenge: base64url(crypto.randomBytes(64)),
     allowCredentials: credIDs.map(id => ({
       type: "public-key",
-      id,
-      transports: ["usb", "nfc", "ble"]
+      id
     }))
   };
 };
