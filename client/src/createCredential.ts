@@ -26,12 +26,14 @@ type Props = Partial<
   user: Omit<PublicKeyCredentialCreationOptions["user"], "id"> & {
     id: string;
   };
+  excludeCredentials: any;
 };
 
 export const createCredential = async ({
   challenge,
   rp,
   user,
+  excludeCredentials,
   ...publicKey
 }: Props) => {
   const credential = await navigator.credentials.create({
@@ -43,6 +45,10 @@ export const createCredential = async ({
         ...user,
         id: Uint8Array.from(user.id, c => c.charCodeAt(0))
       },
+      excludeCredentials: excludeCredentials.map((cred: any) => ({
+        ...cred,
+        id: decode(cred.id)
+      }))
       rp
     } as PublicKeyCredentialCreationOptions
   });

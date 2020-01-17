@@ -14,6 +14,7 @@ type Props = {
   rp: PublicKeyCredentialCreationOptions["rp"];
   user: Omit<PublicKeyCredentialCreationOptions["user"], "id"> & { id: string };
 
+  excludedCredIds?: string[];
   pubKeyCredParams?: PublicKeyCredentialCreationOptions["pubKeyCredParams"];
   authenticatorSelection?: PublicKeyCredentialCreationOptions["authenticatorSelection"];
   attestation?: PublicKeyCredentialCreationOptions["attestation"];
@@ -24,10 +25,16 @@ export const prepareRegistration = async ({
   user,
   attestation,
   pubKeyCredParams,
+  excludedCredIds = [],
   authenticatorSelection
 }: Props): Promise<publicKeyOptions> => {
   return {
     rp,
+    excludeCredentials: excludedCredIds.map(id => ({
+      type: "public-key",
+      id: id as any, //on the server we cant use a buffersource, this type is meant for frontend
+      transports: ["usb", "nfc", "ble"]
+    })),
     user: user as any,
     challenge: base64url(crypto.randomBytes(64)),
     pubKeyCredParams: pubKeyCredParams || [{ alg: -7, type: "public-key" }],
