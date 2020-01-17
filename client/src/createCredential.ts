@@ -48,7 +48,7 @@ export const createCredential = async ({
       excludeCredentials: excludeCredentials.map((cred: any) => ({
         ...cred,
         id: decode(cred.id)
-      }))
+      })),
       rp
     } as PublicKeyCredentialCreationOptions
   });
