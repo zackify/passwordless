@@ -1,5 +1,6 @@
 import { credentialToJSON } from "./credentialToJSON";
 import { decode } from "./base64";
+import { CredentialResponse } from "./getCredential";
 
 const defaultPublicKeyOptions: Partial<PublicKeyCredentialCreationOptions> = {
   pubKeyCredParams: [{ alg: -7, type: "public-key" }],
@@ -35,23 +36,33 @@ export const createCredential = async ({
   user,
   excludeCredentials,
   ...publicKey
-}: Props) => {
-  const credential = await navigator.credentials.create({
-    publicKey: {
-      challenge: decode(challenge),
-      ...defaultPublicKeyOptions,
-      ...publicKey,
-      user: {
-        ...user,
-        id: Uint8Array.from(user.id, c => c.charCodeAt(0))
-      },
-      excludeCredentials: excludeCredentials.map((cred: any) => ({
-        ...cred,
-        id: decode(cred.id)
-      })),
-      rp
-    } as PublicKeyCredentialCreationOptions
-  });
+}: Props): Promise<CredentialResponse> => {
+  try {
+    const rawCredential = await navigator.credentials.create({
+      publicKey: {
+        challenge: decode(challenge),
+        ...defaultPublicKeyOptions,
+        ...publicKey,
+        user: {
+          ...user,
+          id: Uint8Array.from(user.id, c => c.charCodeAt(0))
+        },
+        excludeCredentials: excludeCredentials.map((cred: any) => ({
+          ...cred,
+          id: decode(cred.id)
+        })),
+        rp
+      } as PublicKeyCredentialCreationOptions
+    });
 
-  return credentialToJSON(credential);
+    let credential = credentialToJSON(rawCredential);
+    return { credential };
+  } catch (error) {
+    return {
+      error,
+      verified: false,
+      reason: "credential",
+      message: error.message
+    };
+  }
 };

@@ -8,19 +8,39 @@ type Props = {
   challenge: string;
   allowCredentials: any;
 };
-export const getCredential = async ({ challenge, allowCredentials }: Props) => {
-  const publicKey: any = {
-    userVerification: "preferred",
-    challenge: decode(challenge),
-    allowCredentials: allowCredentials.map((cred: any) => ({
-      ...cred,
-      id: decode(cred.id)
-    }))
-  };
+
+export type CredentialResponse = {
+  credential?: any;
+
+  error?: Error;
+  message?: string;
+  verified?: boolean;
+  reason?: "credential";
+};
+
+export const getCredential = async ({
+  challenge,
+  allowCredentials
+}: Props): Promise<CredentialResponse> => {
   try {
-    let credential = await navigator.credentials.get({ publicKey });
-    return credentialToJSON(credential);
-  } catch (e) {
-    console.error(e);
+    const publicKey: any = {
+      userVerification: "preferred",
+      challenge: decode(challenge),
+      allowCredentials: allowCredentials.map((cred: any) => ({
+        ...cred,
+        id: decode(cred.id)
+      }))
+    };
+
+    let rawCredential = await navigator.credentials.get({ publicKey });
+    let credential = credentialToJSON(rawCredential);
+    return { credential };
+  } catch (error) {
+    return {
+      error,
+      verified: false,
+      reason: "credential",
+      message: error.message
+    };
   }
 };
