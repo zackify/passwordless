@@ -27,8 +27,8 @@ jobs:
         run: |
           cd server
           yarn --frozen-lockfile
-          yarn build
           yarn test --coverage
+          yarn build
           yarn check-types
         env:
           CI: true
