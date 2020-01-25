@@ -17,11 +17,16 @@ let challenge: string;
 let creds: AuthrInfo[] = [];
 
 app.get("/prepare-registration/:user", async (req, res) => {
+  //if this user is registering a key and already logged in, its up to you to
+  // set the name and displayName values based on
+  // a user session or other method you use for managing auth
   let publicKeyOptions = await prepareRegistration({
+    //change this to direct or indirect to see info about the device
+    attestation: "none",
     user: {
       id: "test",
-      displayName: req.params.user,
-      name: req.params.user
+      displayName: "Bob Jones",
+      name: "bob"
     },
     //relaying party AKA us (the server)
     rp: {
@@ -38,6 +43,7 @@ app.get("/prepare-registration/:user", async (req, res) => {
 });
 
 app.get("/prepare-login/:user", (req, res) => {
+  //creds array would be found in a database by the user's name
   let result = prepareLogin({
     credIDs: creds.map(cred => cred.credID),
     authenticatorSelection: {
