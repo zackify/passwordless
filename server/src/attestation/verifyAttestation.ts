@@ -55,7 +55,6 @@ export const verifyAttestation = async (
       device: response.pem ? deviceDataFromPEM(response.pem) : null
     };
   }
-  console.log("MakeCredential request could not be verified");
 
   return response;
 };

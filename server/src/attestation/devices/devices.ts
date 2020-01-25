@@ -6,7 +6,6 @@ const devices = [yubikey];
 export const deviceDataFromPEM = (pem: string) => {
   try {
     const parsedPem = Certificate.fromPEM((pem as unknown) as Buffer);
-
     // return the one that finds device data inside the pem
     for (let device of devices) {
       let deviceData = device(parsedPem);

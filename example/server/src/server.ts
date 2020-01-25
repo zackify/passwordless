@@ -21,8 +21,8 @@ app.get("/prepare-registration/:user", async (req, res) => {
   // set the name and displayName values based on
   // a user session or other method you use for managing auth
   let publicKeyOptions = await prepareRegistration({
-    //change this to direct or indirect to see info about the device
-    attestation: "none",
+    //change this to none if you dont want to receive device info
+    attestation: "direct",
     user: {
       id: "test",
       displayName: "Bob Jones",
