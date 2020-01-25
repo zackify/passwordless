@@ -27,9 +27,6 @@ export const fidoU2f: AttestationType = {
     const pem = ASN1toPEM(credentialResponse.attStmt.x5c[0]);
     const signature = credentialResponse.attStmt.sig;
 
-    //const pem = Certificate.fromPEM((PEMCertificate as unknown) as Buffer);
-    //console.log(pem.getExtension("1.3.6.1.4.1.41482.1.1").value.toString());
-
     return {
       pem,
       verified: verifySignature(signature, signatureBase, pem)
