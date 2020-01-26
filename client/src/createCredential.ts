@@ -19,7 +19,7 @@ const defaultPublicKeyOptions: Partial<PublicKeyCredentialCreationOptions> = {
   do the conversion to a BufferSource
 */
 
-type Props = Partial<
+export type CreateCredentialProps = Partial<
   Omit<PublicKeyCredentialCreationOptions, "challenge" | "user">
 > & {
   challenge: string;
@@ -36,7 +36,7 @@ export const createCredential = async ({
   user,
   excludeCredentials,
   ...publicKey
-}: Props): Promise<CredentialResponse> => {
+}: CreateCredentialProps): Promise<CredentialResponse> => {
   try {
     const rawCredential = await navigator.credentials.create({
       publicKey: {

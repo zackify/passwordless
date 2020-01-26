@@ -4,7 +4,7 @@ import { decode } from "./base64";
 /**
  * Exporting and stuff
  */
-type Props = {
+export type GetCredentialProps = {
   challenge: string;
   allowCredentials: any;
 };
@@ -21,7 +21,7 @@ export type CredentialResponse = {
 export const getCredential = async ({
   challenge,
   allowCredentials
-}: Props): Promise<CredentialResponse> => {
+}: GetCredentialProps): Promise<CredentialResponse> => {
   try {
     const publicKey: any = {
       userVerification: "preferred",
