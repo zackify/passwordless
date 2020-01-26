@@ -1,5 +1,4 @@
-![Tests](https://github.com/zackify/passwordless/workflows/Test%20and%20Build/badge.svg?branch=master)
-
+![Tests](https://github.com/zackify/passwordless/workflows/Tests/badge.svg)
 ## Passwordless
 
 - [Intro](#Introduction)
