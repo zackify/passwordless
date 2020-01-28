@@ -47,7 +47,7 @@ export const verifyAttestation = async (
       pem: response.pem,
       verified: true,
       authrInfo: {
-        fmt: "fido-u2f",
+        fmt: credentialResponse.fmt,
         publicKey: base64url.encode(publicKey),
         counter: authrDataStruct.counter,
         credID: base64url.encode(authrDataStruct.credID)

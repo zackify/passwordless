@@ -9,8 +9,12 @@ export const selfPacked: AttestationType = {
   isType: ({ credentialResponse }) =>
     credentialResponse.fmt === "packed" &&
     !credentialResponse.attStmt.hasOwnProperty("x5c"),
-  verify: ({ webAuthnResponse, credentialResponse, publicKey }) => {
-    console.log("Self signed attestation");
+  verify: ({
+    webAuthnResponse,
+    credentialResponse,
+    authrDataStruct,
+    publicKey
+  }) => {
     const clientDataHash = hash(
       base64url.toBuffer(webAuthnResponse.response.clientDataJSON)
     );
@@ -19,7 +23,6 @@ export const selfPacked: AttestationType = {
       clientDataHash
     ]);
     const pem = ASN1toPEM(publicKey);
-
     const {
       attStmt: { sig: signature, alg }
     } = credentialResponse;

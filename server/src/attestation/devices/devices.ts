@@ -12,8 +12,6 @@ export const deviceDataFromPEM = (pem: string) => {
       if (deviceData) return deviceData;
     }
   } catch (e) {
-    console.log(pem);
-    console.error(e);
     return {};
   }
 };
