@@ -1,6 +1,6 @@
 {
   "name": "@passwordless/base-server",
-  "version": "0.2.4",
+  "version": "0.4.1",
   "description": " ",
   "main": "cjs/index.js",
   "module": "module/index.js",
