@@ -1,6 +1,6 @@
 {
-  "name": "@passwordless/client",
-  "version": "0.0.0",
+  "name": "@passwordless/base-client",
+  "version": "0.2.4",
   "private": false,
   "main": "cjs/index.js",
   "module": "module/index.js",
