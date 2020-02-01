@@ -20,8 +20,8 @@ describe("Fido U2F Attestation", () => {
     };
     let verification = await verifyAttestation(credential);
 
-    expect(verification.authrInfo.fmt).toEqual("packed");
-    expect(verification.authrInfo.counter).toEqual(47);
+    expect(verification.credential.format).toEqual("packed");
+    expect(verification.credential.counter).toEqual(47);
     expect(verification.verified).toEqual(true);
   });
 

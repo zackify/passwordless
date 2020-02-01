@@ -3,7 +3,7 @@ import base64url from "base64url";
 import { ASN1toPEM } from "./helpers/ASN1toPEM";
 import { parseAuthData } from "./helpers/parseAuthData";
 import { verifySignature } from "./helpers/verifySignature";
-import { AuthrInfo } from "./verify";
+import { DeviceCredential } from "./verify";
 
 export type LoginCredential = {
   rawId: string;
@@ -20,7 +20,7 @@ export type LoginCredential = {
 
 type Props = {
   credential: LoginCredential;
-  creds: AuthrInfo[];
+  creds: DeviceCredential[];
 };
 
 export const verifyLogin = ({ credential, creds }: Props) => {
@@ -39,7 +39,7 @@ export const verifyLogin = ({ credential, creds }: Props) => {
   ]);
   const signature = base64url.toBuffer(credential.response.signature);
 
-  const cred = creds.find(cred => credential.id === cred.credID);
+  const cred = creds.find(cred => credential.id === cred.id);
 
   if (!cred)
     return {
@@ -62,12 +62,12 @@ export const verifyLogin = ({ credential, creds }: Props) => {
   return {
     verified: verified ? true : false,
     matchingCredID: credential.id,
-    authrInfo: verified
+    credential: verified
       ? {
-          fmt: cred.fmt,
+          format: cred.format,
           counter: authrDataStruct.counter,
           publicKey: base64url.encode(publicKey),
-          credID: base64url.encode(cred.credID)
+          id: base64url.encode(cred.id)
         }
       : undefined
   };

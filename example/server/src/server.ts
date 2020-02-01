@@ -6,7 +6,7 @@ import {
   prepareLogin,
   verify
 } from "@passwordless/server";
-import { AuthrInfo } from "@passwordless/server/module/verify";
+import { DeviceCredential } from "@passwordless/server/module/verify";
 import { RegistrationCredential } from "@passwordless/server/module/verifyRegistration";
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 let challenge: string;
-let creds: AuthrInfo[] = [];
+let creds: DeviceCredential[] = [];
 
 app.get("/prepare-registration/:user", async (req, res) => {
   //if this user is registering a key and already logged in, its up to you to
@@ -45,7 +45,7 @@ app.get("/prepare-registration/:user", async (req, res) => {
 app.get("/prepare-login/:user", (req, res) => {
   //creds array would be found in a database by the user's name
   let result = prepareLogin({
-    credIDs: creds.map(cred => cred.credID),
+    credIDs: creds.map(cred => cred.id),
     authenticatorSelection: {
       userVerification: "discouraged",
       authenticatorAttachment: "cross-platform"
@@ -62,7 +62,7 @@ app.post("/verify-credential", async (req, res) => {
     origin: "http://localhost:3001",
     credential: (req.body.credential as unknown) as RegistrationCredential
   });
-  if (result.authrInfo) creds.push(result.authrInfo);
+  if (result.credential) creds.push(result.credential);
   res.send(result);
 });
 

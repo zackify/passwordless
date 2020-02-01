@@ -5,24 +5,25 @@ import {
   RegistrationCredential
 } from "./verifyRegistration";
 
-export type AuthrInfo = {
-  fmt: string;
+export type DeviceCredential = {
+  id: string;
+  name?: string;
+  format: string;
   publicKey: string;
   counter: number;
-  credID: string;
 };
 
 type Props = {
   credential: RegistrationCredential | LoginCredential;
   challenge: string;
   origin: string;
-  creds?: AuthrInfo[];
+  creds?: DeviceCredential[];
 };
 
 export type VerificationResponse = {
   verified: boolean;
   message?: string;
-  authrInfo?: AuthrInfo;
+  credential?: DeviceCredential;
   matchingCredID?: string;
 };
 

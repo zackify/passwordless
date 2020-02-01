@@ -46,13 +46,13 @@ export const verifyAttestation = async (
     return {
       pem: response.pem,
       verified: true,
-      authrInfo: {
+      deviceData: {
+        name: response.pem ? deviceDataFromPEM(response.pem) : "",
         fmt: credentialResponse.fmt,
         publicKey: base64url.encode(publicKey),
         counter: authrDataStruct.counter,
-        credID: base64url.encode(authrDataStruct.credID)
-      },
-      device: response.pem ? deviceDataFromPEM(response.pem) : null
+        id: base64url.encode(authrDataStruct.credID)
+      }
     };
   }
 
