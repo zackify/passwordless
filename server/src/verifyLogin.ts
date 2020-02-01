@@ -60,7 +60,7 @@ export const verifyLogin = ({ credential, creds }: Props) => {
   let verified = verifySignature(signature, signatureBase, publicKey);
 
   return {
-    verified: verified ? true : false,
+    verified,
     matchingCredID: credential.id,
     credential: verified
       ? {

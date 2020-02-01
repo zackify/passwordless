@@ -46,7 +46,7 @@ export const verifyAttestation = async (
     return {
       pem: response.pem,
       verified: true,
-      deviceData: {
+      credential: {
         name: response.pem ? deviceDataFromPEM(response.pem) : "",
         fmt: credentialResponse.fmt,
         publicKey: base64url.encode(publicKey),
