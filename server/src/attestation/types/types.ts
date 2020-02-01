@@ -4,7 +4,7 @@ import { none } from "./none";
 import { packed } from "./packed";
 import { selfPacked } from "./self-packed";
 import { RegistrationCredential } from "../../verifyRegistration";
-//import { tpm } from "./tpm";
+import { tpm } from "./tpm";
 
 export type AttestationData = {
   publicKey: Buffer;
@@ -31,6 +31,6 @@ export const attestationTypes: AttestationType[] = [
   fidoU2f,
   none,
   packed,
-  //tpm,
+  tpm,
   selfPacked
 ];
