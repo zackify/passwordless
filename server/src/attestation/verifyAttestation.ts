@@ -41,14 +41,15 @@ export const verifyAttestation = async (
     };
 
   let response = await attestationType.verify(attestationData);
+  let deviceData = response.pem ? deviceDataFromPEM(response.pem) : ({} as any);
 
   if (response.verified) {
     return {
       pem: response.pem,
       verified: true,
       credential: {
-        name: response.pem ? deviceDataFromPEM(response.pem) : "",
-        fmt: credentialResponse.fmt,
+        name: deviceData?.name,
+        format: credentialResponse.fmt,
         publicKey: base64url.encode(publicKey),
         counter: authrDataStruct.counter,
         id: base64url.encode(authrDataStruct.credID)
