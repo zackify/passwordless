@@ -2,15 +2,15 @@ import crypto from "crypto";
 import base64url from "base64url";
 
 type Props = {
-  credIDs: string[];
+  credIds: string[];
   authenticatorSelection?: PublicKeyCredentialCreationOptions["authenticatorSelection"];
 };
 
-export const prepareLogin = ({ credIDs, authenticatorSelection }: Props) => {
+export const prepareLogin = ({ credIds, authenticatorSelection }: Props) => {
   return {
     authenticatorSelection,
     challenge: base64url(crypto.randomBytes(64)),
-    allowCredentials: credIDs.map(id => ({
+    allowCredentials: credIds.map(id => ({
       type: "public-key",
       id
     }))

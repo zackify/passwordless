@@ -2,7 +2,7 @@ import { prepareLogin } from "./prepareLogin";
 
 test("Prepare Login returns creds", () => {
   let result = prepareLogin({
-    credIDs: ["id1", "id2"],
+    credIds: ["id1", "id2"],
     authenticatorSelection: {
       userVerification: "discouraged",
       authenticatorAttachment: "cross-platform"
