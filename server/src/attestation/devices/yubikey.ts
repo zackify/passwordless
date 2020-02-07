@@ -23,18 +23,17 @@ const deviceNameParsers: ((pem: Certificate) => string | void)[] = [
       return "YubiKey 5 NFC";
 
     if (fiveSeries === "0410cb69481e8ff7403993ec0a2729a154a8")
-      return "YubiKey 5 Series security key";
+      return "YubiKey 5 Series";
 
     if (fiveSeries === "04106d44ba9bf6ec2e49b9300c8fe920cb73")
-      return "Security Key NFC by Yubico";
+      return "Yubico Security Key NFC";
 
     if (fiveSeries === "0410c5ef55ffad9a4b9fb580adebafe026d0")
       return "YubiKey 5Ci";
   },
   pem => {
     let genericYubikey = extensionToString(pem, "1.3.6.1.4.1.41482.2");
-    if (genericYubikey === "1.3.6.1.4.1.41482.1.7")
-      return "YubiKey 5 Series security key";
+    if (genericYubikey === "1.3.6.1.4.1.41482.1.7") return "YubiKey 5 Series";
   }
 ];
 
