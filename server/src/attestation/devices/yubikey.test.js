@@ -34,7 +34,7 @@ describe("Yubikey device data is parsed registration", () => {
       challenge:
         "h9ZJ7mZFT88JOXrAteHqaCZbjVUVNziwQmkRFDi5X6Dz_RWepslJKDUSgKWjgt2BsQc3t0roVbDQTdSPrHaq4w"
     });
-    expect(verification.device?.name).toEqual("YubiKey 5 NFC");
+    expect(verification.credential?.name).toEqual("YubiKey 5 NFC");
   });
   test("Yubikey 5C", async () => {
     //using the example server / client, i copied the json encoded credential response into this test
@@ -60,6 +60,36 @@ describe("Yubikey device data is parsed registration", () => {
       challenge:
         "OQ3oc9aolySCbg0hx89PcmqFTxHk5ZGUFi9A-fbma_-C2PfHxPzlGDO6G4LOhsb070lyvFeoaoFnVGQAGHGmIw"
     });
-    expect(verification.device?.name).toEqual("YubiKey 5 Series security key");
+    expect(verification.credential?.name).toEqual(
+      "YubiKey 5 Series security key"
+    );
+  });
+
+  test("Newer Yubikey 5C", async () => {
+    //using the example server / client, i copied the json encoded credential response into this test
+    let credential = {
+      rawId:
+        "Xa_n7ugy56yZ6ho_A7pV8tQ2hEJawcIWButhW3fWU4tsCmYweU5dpFhPW1Z0LfLNEVEFiQzTHjdCBVHXf2J5Yg",
+      response: {
+        attestationObject:
+          "o2NmbXRoZmlkby11MmZnYXR0U3RtdKJjc2lnWEgwRgIhAMFOCkXVinElB6UDRWJSsuHeibAUZer6hQ0AsX3zw9uIAiEArSx5aAU-VTscr0v_LLqt4AQ35XpFtBVGmmshC_xE-NZjeDVjgVkCwjCCAr4wggGmoAMCAQICBFZmM30wDQYJKoZIhvcNAQELBQAwLjEsMCoGA1UEAxMjWXViaWNvIFUyRiBSb290IENBIFNlcmlhbCA0NTcyMDA2MzEwIBcNMTQwODAxMDAwMDAwWhgPMjA1MDA5MDQwMDAwMDBaMG8xCzAJBgNVBAYTAlNFMRIwEAYDVQQKDAlZdWJpY28gQUIxIjAgBgNVBAsMGUF1dGhlbnRpY2F0b3IgQXR0ZXN0YXRpb24xKDAmBgNVBAMMH1l1YmljbyBVMkYgRUUgU2VyaWFsIDE0NDk1Mzg0MjkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAT_sayZX-lwzDJwPW0ZKPNi2oen84IgHGm8DTpl1bazdUv6SIxVbrvu0r2QktcMbnDVUQAPHimn4HU-seUaKxIto2wwajAiBgkrBgEEAYLECgIEFTEuMy42LjEuNC4xLjQxNDgyLjEuNzATBgsrBgEEAYLlHAIBAQQEAwIFIDAhBgsrBgEEAYLlHAEBBAQSBBDuiCh5chxJE5d1PfzOlwcqMAwGA1UdEwEB_wQCMAAwDQYJKoZIhvcNAQELBQADggEBAEQYt7eJNOrUqHRaTjaYRvOqV7XRsbNEyTLnrkMVXndB36k-yNmN9kSUNs-lZuCIQEexWUp9IWGdHGUIb56vDxW8jWOnzPrdVgjK1yfEmQix-GjjGIM9CPOX5D6ZJWm4mLjTD9cO8IC0qEaMFH8LAuJlsDbBW3IVuHcT5_n9B_W54xvteleJuJq4hdsZyPy7q4HuSQhK22MFX71CwvPp6uaBR_JhbaShiQCvJjgibLki16iyk-fuohoxHCdRPOiScRFtb9kilDd6_QHFoxP0BPlKOZXRPMedmF7A17lxZjh7aLPIDfkABhS2d8e8djeZ9R_4nn4hAFuZFXmRXmU5Q9toYXV0aERhdGFYxEmWDeWIDoxodDQXD2R2YFuP5K65ooYyx5lc87qDHZdjQQAAAAAAAAAAAAAAAAAAAAAAAAAAAEBdr-fu6DLnrJnqGj8DulXy1DaEQlrBwhYG62Fbd9ZTi2wKZjB5Tl2kWE9bVnQt8s0RUQWJDNMeN0IFUdd_YnlipQECAyYgASFYIJ76DaFAqv_7unG1ICUmuprHfi8LlzRJJ86Ot4t9v7MLIlggF_ddRk40Vrz7Aan8f0qvdNxGgwqvbjE5lrqcQ3EayiQ",
+        getTransports: {},
+        clientDataJSON:
+          "eyJjaGFsbGVuZ2UiOiJqT2pHM0FxVkJqdXdLeGlrUzA3c09fdWVsRlowRjFsZndTeEM4NUJGN2QzNmV1ZlBUVU9vTzdkN1d2QjEzV3cwZlJyc1FJRTlQUkNPcVlhMXNBSzB4dyIsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMSIsInR5cGUiOiJ3ZWJhdXRobi5jcmVhdGUifQ"
+      },
+      getClientExtensionResults: {},
+      id:
+        "Xa_n7ugy56yZ6ho_A7pV8tQ2hEJawcIWButhW3fWU4tsCmYweU5dpFhPW1Z0LfLNEVEFiQzTHjdCBVHXf2J5Yg",
+      type: "public-key"
+    };
+    let verification = await verify({
+      credential,
+      origin: "http://localhost:3001",
+      challenge:
+        "jOjG3AqVBjuwKxikS07sO_uelFZ0F1lfwSxC85BF7d36eufPTUOoO7d7WvB13Ww0fRrsQIE9PRCOqYa1sAK0xw"
+    });
+    expect(verification.credential?.name).toEqual(
+      "YubiKey 5 Series security key"
+    );
   });
 });

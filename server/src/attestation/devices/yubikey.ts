@@ -19,7 +19,6 @@ const extensionToString = (
 const deviceNameParsers: ((pem: Certificate) => string | void)[] = [
   pem => {
     let fiveSeries = extensionToString(pem, "1.3.6.1.4.1.45724.1.1.4", "hex");
-
     if (fiveSeries === "0410fa2b99dc9e3942578f924a30d23c4118")
       return "YubiKey 5 NFC";
 
@@ -31,13 +30,17 @@ const deviceNameParsers: ((pem: Certificate) => string | void)[] = [
 
     if (fiveSeries === "0410c5ef55ffad9a4b9fb580adebafe026d0")
       return "YubiKey 5Ci";
+  },
+  pem => {
+    let genericYubikey = extensionToString(pem, "1.3.6.1.4.1.41482.2");
+    if (genericYubikey === "1.3.6.1.4.1.41482.1.7")
+      return "YubiKey 5 Series security key";
   }
 ];
 
 export const yubikey = (pem: Certificate) => {
   let name = deviceNameParsers.find(device => device(pem));
   if (!name) return null;
-
   return {
     name: name(pem)
   };

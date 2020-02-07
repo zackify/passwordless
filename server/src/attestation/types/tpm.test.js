@@ -20,6 +20,6 @@ describe("Fido U2F Attestation", () => {
     };
     let verification = await verifyAttestation(credential);
 
-    console.log(verification);
+    //console.log(verification);
   });
 });
