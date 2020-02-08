@@ -1,10 +1,21 @@
 import { getCredential } from "./getCredential";
 
+test("getCredential fails when PublicKeyCredential is not on the window", async () => {
+  let response = await getCredential({});
+
+  expect(response.reason).toEqual("unsupported");
+  expect(response.message).toEqual(
+    "Your browser doesn't support hardware authentication, please update it"
+  );
+});
+
 test("getCredential calls navigation.credentials.get correctly", () => {
   let spy = jest.fn();
   navigator.credentials = {
     get: spy
   };
+  //mock the window password credential
+  window.PublicKeyCredential = true;
   getCredential({
     authenticatorSelection: {
       userVerification: "preferred",
