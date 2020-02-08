@@ -1,5 +1,6 @@
 import { credentialToJSON } from "./credentialToJSON";
 import { decode } from "./base64";
+import { unsupportedCheck } from "./createCredential";
 
 /**
  * Exporting and stuff
@@ -15,13 +16,15 @@ export type CredentialResponse = {
   error?: Error;
   message?: string;
   verified?: boolean;
-  reason?: "credential";
+  reason?: "credential" | "unsupported";
 };
 
 export const getCredential = async ({
   challenge,
   allowCredentials
 }: GetCredentialProps): Promise<CredentialResponse> => {
+  let unsupported = unsupportedCheck();
+  if (unsupported) return unsupported;
   try {
     const publicKey: any = {
       userVerification: "preferred",

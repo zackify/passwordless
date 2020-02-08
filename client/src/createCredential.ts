@@ -30,6 +30,16 @@ export type CreateCredentialProps = Partial<
   excludeCredentials: any;
 };
 
+export const unsupportedCheck = (): CredentialResponse | undefined => {
+  if (!window.PublicKeyCredential)
+    return {
+      verified: false,
+      reason: "unsupported",
+      message:
+        "Your browser doesn't support hardware authentication, please update it"
+    };
+};
+
 export const createCredential = async ({
   challenge,
   rp,
@@ -37,6 +47,9 @@ export const createCredential = async ({
   excludeCredentials,
   ...publicKey
 }: CreateCredentialProps): Promise<CredentialResponse> => {
+  let unsupported = unsupportedCheck();
+  if (unsupported) return unsupported;
+
   try {
     const rawCredential = await navigator.credentials.create({
       publicKey: {
