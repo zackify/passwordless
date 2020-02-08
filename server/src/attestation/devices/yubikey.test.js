@@ -60,9 +60,7 @@ describe("Yubikey device data is parsed registration", () => {
       challenge:
         "OQ3oc9aolySCbg0hx89PcmqFTxHk5ZGUFi9A-fbma_-C2PfHxPzlGDO6G4LOhsb070lyvFeoaoFnVGQAGHGmIw"
     });
-    expect(verification.credential?.name).toEqual(
-      "YubiKey 5 Series security key"
-    );
+    expect(verification.credential?.name).toEqual("YubiKey 5 Series");
   });
 
   test("Newer Yubikey 5C", async () => {
@@ -88,8 +86,6 @@ describe("Yubikey device data is parsed registration", () => {
       challenge:
         "jOjG3AqVBjuwKxikS07sO_uelFZ0F1lfwSxC85BF7d36eufPTUOoO7d7WvB13Ww0fRrsQIE9PRCOqYa1sAK0xw"
     });
-    expect(verification.credential?.name).toEqual(
-      "YubiKey 5 Series security key"
-    );
+    expect(verification.credential?.name).toEqual("YubiKey 5 Series");
   });
 });
