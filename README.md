@@ -1,6 +1,7 @@
 ![Tests](https://github.com/zackify/passwordless/workflows/Tests/badge.svg)
 ## Passwordless
 
+
 - [Intro](#Introduction)
 - [Server](#Server)
 - [Client](#Client)
