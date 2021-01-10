@@ -1,10 +1,17 @@
 ![Tests](https://github.com/zackify/passwordless/workflows/Tests/badge.svg)
-## Passwordless
 
+## Beta
 
-- [Intro](#Introduction)
-- [Server](#Server)
-- [Client](#Client)
+I originally wrote this a year ago... I planned to finish it but got discouraged at the Saas platform offering I built on top of this. The code here is more readable and uses TS unlike any of the other Node Webauthn examples I've seen. With that being said I would like to refactor it a bit more before releasing a v1.
+
+## Quickstart
+
+I haven't added much documentation just yet, but here's how to get started.
+
+- Take a look at the [example server](https://github.com/zackify/passwordless/blob/master/example/server/src/server.ts)
+- Check the [frontend example code](https://github.com/zackify/passwordless/blob/master/example/client/src/App.tsx), for interacting with the server
+
+This will give an overview of the whole handshake process! I tried to make it as easy as possible. In the next few weeks more updates, docs, and refactor will be coming.
 
 ### Introduction
 
